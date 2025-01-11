@@ -1,5 +1,6 @@
 const cloudinary = require("../lib/cloudinary");
 const Message = require("../models/MessageModel");
+const User = require("../models/UserModel");
 
 const getUsersForSidebar = async (req, res) => {
   try {
@@ -7,7 +8,7 @@ const getUsersForSidebar = async (req, res) => {
     const filteredUsers = await User.find({
       _id: { $ne: loggedInUserID },
     }).select("-password");
-    res.status(200).json({
+    return res.status(200).json({
       sucess: false,
       filteredUsers,
     });
@@ -32,7 +33,7 @@ const getMessages = async (req, res) => {
       ],
     });
 
-    res.status(200).json(messages);
+    return res.status(200).json(messages);
   } catch (error) {
     console.log("Error in Get Messages Controller", error.message);
     return res.status(500).json({
@@ -65,7 +66,7 @@ const sendMessages = async (req, res) => {
 
     // todo: Real time functionality goes here ==> socket.io
 
-    res.status(201).json(newMessage);
+    return res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in Send Messages Controller", error.message);
     return res.status(500).json({

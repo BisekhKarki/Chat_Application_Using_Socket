@@ -133,7 +133,7 @@ const updateProfile = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: updatedUser,
     });
@@ -148,7 +148,7 @@ const updateProfile = async (req, res) => {
 
 const checkAuth = async (req, res) => {
   try {
-    res.status(200).json(req.user);
+    return res.status(200).json(req.user);
   } catch (error) {
     console.log("Error in Check Controller", error.message);
     return res.status(500).json({
